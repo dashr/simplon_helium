@@ -90,7 +90,24 @@ class PushNotification
      * @return array
      */
     public function getData()
-    {
+    {   
+        /**
+        *
+        * If both are false, assume device_types = all
+        * <code>
+        *   $pushNotifications[] = \Simplon\Helium\PushNotification::init()
+        *       ->setTags(array('en'))
+        *       ->setAlert( 'Howdy' )
+        *       ->getData();
+        * </code>
+        *
+        */
+        if($this->_aps ===false && $this->_android===false)
+        {
+            $this->_aps = true;
+            $this->_android = true;
+        }
+
         if ($this->_aps)
         {
             $this->_setApsElementByKey('alert', $this->_getAlert());
